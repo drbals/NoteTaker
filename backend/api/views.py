@@ -10,6 +10,11 @@ class CreateUserView(generics.CreateAPIView):
     serializer_class = UserSerializer
     permission_classes = [AllowAny]
 
+    def create(self, request, *args, **kwargs):
+        # print("Request Data:", request.data)  # Log the incoming data
+        # print("Request Headers:", request.headers)  # Log the request headers
+        return super().create(request, *args, **kwargs)
+
 class NoteListCreate(generics.ListCreateAPIView):
     serializer_class = NoteSerializer
     permission_classes = [IsAuthenticated]
