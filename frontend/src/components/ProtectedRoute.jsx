@@ -13,7 +13,7 @@ function ProtectedRoute({children}) {
 
     const refreshToken = async () => {
         const refreshToken = localStorage.getItem(REFRESH_TOKEN)
-        if (!token) {
+        if (!refreshToken) {
             setIsAuthorized(false)
             return
         }

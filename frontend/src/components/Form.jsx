@@ -15,8 +15,13 @@ function Form({route, method}) {
         setLoading(true)
         e.preventDefault()
 
+        
+
         try {
+            console.log("Username:", username)
             const response = await api.post(route, { username, password })
+            console.log("Response Data:", response.data);
+            console.log("Stored Token:", localStorage.getItem(ACCESS_TOKEN));
             if (method == 'login') {
                 localStorage.setItem(ACCESS_TOKEN, response.data.access_token)
                 localStorage.setItem(REFRESH_TOKEN, response.data.refresh_token)
@@ -26,6 +31,7 @@ function Form({route, method}) {
             }
         }
         catch (error) {
+            console.log("Error Response:", error.response); 
             alert(error)
         } finally { setLoading(false) }
     };
