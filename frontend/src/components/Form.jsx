@@ -14,19 +14,18 @@ function Form({route, method}) {
     const handleSubmit = async (e) => {   
         setLoading(true)
         e.preventDefault()
-
-        
-
         try {
-            console.log("Username:", username)
             const response = await api.post(route, { username, password })
-            console.log("Response Data:", response.data);
-            console.log("Stored Token:", localStorage.getItem(ACCESS_TOKEN));
-            if (method == 'login') {
-                localStorage.setItem(ACCESS_TOKEN, response.data.access_token)
-                localStorage.setItem(REFRESH_TOKEN, response.data.refresh_token)
+            // console.log("Response Data:", response.data);
+            if (method === 'login') {
+                localStorage.setItem(ACCESS_TOKEN, response.data.access)
+                localStorage.setItem(REFRESH_TOKEN, response.data.refresh)
+                // console.log("Access Token:", localStorage.getItem(ACCESS_TOKEN));
+                // console.log("Refresh Token:", localStorage.getItem(REFRESH_TOKEN));
+                console.log("Navigating to Home!")
                 navigate('/')
             } else {
+                console.log("Navigating to Login!")
                 navigate('/login')
             }
         }
@@ -44,6 +43,7 @@ function Form({route, method}) {
             value = {username}
             onChange = {(e) => setUsername(e.target.value)}
             placeholder = "Username"
+            autoComplete='username'
         />
 
         <input
@@ -52,6 +52,7 @@ function Form({route, method}) {
             value = {password}
             onChange = {(e) => setPassword(e.target.value)}
             placeholder = "Password"
+            autoComplete='current-password'
         />
 
         <button className = "form-button" type = "submit">
